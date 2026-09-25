@@ -7,16 +7,6 @@ Cubre las 5 pantallas de wireframes de alta fidelidad del documento:
 mapa público, formulario de nuevo reporte, confirmación/seguimiento,
 login de funcionario y panel administrativo (Kanban, mapa admin, estadísticas).
 
-## Cómo abrirlo
-
-1. Descomprimí el `.zip`.
-2. Abrí la carpeta `masaya-reportes` en Visual Studio Code.
-3. Instalá la extensión **Live Server** (si no la tenés) y clic derecho
-   sobre `index.html` → **"Open with Live Server"**.
-4. Se abre en `http://127.0.0.1:5500/index.html` (o el puerto que uses).
-
-No necesita `npm install` ni Node — es HTML/CSS/JS puro, pensado exactamente
-para correr con Live Server.
 
 ## Acceso al panel administrativo
 
