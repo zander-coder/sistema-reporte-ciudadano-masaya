@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Acceso de funcionarios — Masaya Reporta</title>
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpath d='M20 3C12 3 6 9.2 6 17c0 10.5 14 20 14 20s14-9.5 14-20c0-7.8-6-14-14-14Z' fill='%230E7C86'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/layout.css">
+<style>
+  body{ background: var(--ink-soft); }
+  .login-wrap{ min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: var(--sp-4); }
+  .login-brand{ text-align: center; margin-bottom: var(--sp-5); }
+  .login-brand .brand-text{ color: #fff; }
+  .login-brand .brand-text small{ color: #93a3a9; }
+  .login-card{ width: 100%; max-width: 380px; }
+  .demo-hint{ text-align:center; font-size: var(--fs-xs); color: #93a3a9; margin-top: var(--sp-4); }
+</style>
+</head>
+<body>
+
+<div class="login-wrap">
+  <div>
+    <div class="login-brand" style="display:flex;flex-direction:column;align-items:center;">
+      <span id="logoSlot" style="width:44px;height:44px;margin-bottom:10px;"></span>
+      <span class="brand-text" style="font-size:1.1rem;">Masaya Reporta<small>Panel de funcionarios municipales</small></span>
+    </div>
+
+    <form id="formLogin" class="card login-card">
+      <div class="field">
+        <label for="usuario">Usuario</label>
+        <input type="text" id="usuario" class="input" autocomplete="username" required>
+      </div>
+      <div class="field" style="margin-bottom:8px;">
+        <label for="password">Contraseña</label>
+        <input type="password" id="password" class="input" autocomplete="current-password" required>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block" style="margin-top:12px;">
+        <span id="icoCandado"></span> Iniciar sesión
+      </button>
+    </form>
+    <p class="demo-hint">Demo: usuario <strong>admin</strong> / contraseña <strong>masaya2026</strong></p>
+  </div>
+</div>
+
+<div id="toast-region"></div>
+
+<script src="js/icons.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/db.js"></script>
+<script>
+  document.getElementById('logoSlot').innerHTML = ICONS.logo;
+  document.getElementById('icoCandado').innerHTML = ICONS.candado;
+</script>
+<script src="js/auth.js"></script>
+</body>
+</html>

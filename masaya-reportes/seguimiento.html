@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Consultar estado de mi reporte — Masaya Reporta</title>
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpath d='M20 3C12 3 6 9.2 6 17c0 10.5 14 20 14 20s14-9.5 14-20c0-7.8-6-14-14-14Z' fill='%230E7C86'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/layout.css">
+</head>
+<body>
+
+<header class="top-bar">
+  <a href="index.html" class="brand">
+    <span id="logoSlot"></span>
+    <span class="brand-text">Masaya Reporta<small>Alcaldía Municipal de Masaya</small></span>
+  </a>
+  <nav class="top-nav">
+    <a class="btn btn-ghost btn-sm" href="index.html">Volver al mapa</a>
+  </nav>
+</header>
+
+<main class="page-narrow">
+  <div class="form-shell">
+    <div class="page-head">
+      <span class="eyebrow-tag" id="icoBuscarTag"></span>
+      <h1>Consultá el estado de tu reporte</h1>
+      <p>Ingresá el código que recibiste al reportar, o tu número de teléfono si lo dejaste al momento del reporte.</p>
+    </div>
+
+    <form id="formBuscar" class="card" style="margin-bottom:24px;">
+      <div class="field" style="margin-bottom:16px;">
+        <label for="inputCodigo">Código de seguimiento</label>
+        <input type="text" id="inputCodigo" class="input" placeholder="Ej: MSY-AB1234">
+      </div>
+      <p style="text-align:center;margin:-4px 0 16px;color:var(--ink-faint);font-size:var(--fs-xs);">— o —</p>
+      <div class="field" style="margin-bottom:0;">
+        <label for="inputTelefono">Número de teléfono</label>
+        <input type="tel" id="inputTelefono" class="input" placeholder="8888-0000">
+      </div>
+      <button type="submit" class="btn btn-primary btn-block" style="margin-top:20px;">Consultar</button>
+    </form>
+
+    <div id="resultado"></div>
+  </div>
+</main>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="js/icons.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/db.js"></script>
+<script>
+  document.getElementById('logoSlot').innerHTML = ICONS.logo;
+  document.getElementById('icoBuscarTag').innerHTML = ICONS.buscar + ' Seguimiento';
+</script>
+<script src="js/seguimiento.js"></script>
+</body>
+</html>

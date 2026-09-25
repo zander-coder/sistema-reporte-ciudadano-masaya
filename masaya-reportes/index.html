@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Masaya Reporta — Mapa de daños urbanos</title>
+<meta name="description" content="Reporta y da seguimiento a baches, luminarias dañadas y fugas de agua en el municipio de Masaya.">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpath d='M20 3C12 3 6 9.2 6 17c0 10.5 14 20 14 20s14-9.5 14-20c0-7.8-6-14-14-14Z' fill='%230E7C86'/%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/layout.css">
+</head>
+<body>
+
+<header class="top-bar">
+  <a href="index.html" class="brand">
+    <span id="logoSlot"></span>
+    <span class="brand-text">Masaya Reporta<small>Alcaldía Municipal de Masaya</small></span>
+  </a>
+  <nav class="top-nav">
+    <a class="btn btn-ghost btn-sm" href="seguimiento.html"><span id="icoBuscar"></span><span>Consultar estado</span></a>
+    <a class="btn btn-ghost btn-sm" href="login.html"><span id="icoUsuario"></span><span>Funcionarios</span></a>
+    <a class="btn btn-clay btn-sm" href="reportar.html"><span id="icoPin"></span><span>Reportar daño</span></a>
+  </nav>
+</header>
+
+<main class="map-hero">
+  <div id="mapaPublico" role="application" aria-label="Mapa de reportes ciudadanos de Masaya"></div>
+
+  <div class="map-overlay-top">
+    <div class="card card-glass filtros-panel" id="filtrosTipo" aria-label="Filtrar por tipo de daño"></div>
+    <div class="card card-glass filtros-panel" id="filtrosEstado" aria-label="Filtrar por estado"></div>
+  </div>
+
+  <section class="card card-glass panel-acciones">
+    <h1>Reportá un daño en tu barrio</h1>
+    <p>Bache, luminaria dañada o fuga de agua: adjuntá una foto y la ubicación, y seguí el estado de tu reporte en línea.</p>
+    <a href="reportar.html" class="btn btn-primary btn-block"><span id="icoPin2"></span>Nuevo reporte</a>
+    <a href="seguimiento.html" class="btn btn-ghost btn-block"><span id="icoBuscar2"></span>Ya reporté, quiero ver el estado</a>
+  </section>
+
+  <div class="card card-glass leyenda" id="leyenda"></div>
+</main>
+
+<div id="toast-region"></div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="js/icons.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/db.js"></script>
+<script>
+  document.getElementById('logoSlot').innerHTML = ICONS.logo;
+  document.getElementById('icoBuscar').innerHTML = ICONS.buscar;
+  document.getElementById('icoUsuario').innerHTML = ICONS.usuario;
+  document.getElementById('icoPin').innerHTML = ICONS.pin;
+  document.getElementById('icoPin2').innerHTML = ICONS.pin;
+  document.getElementById('icoBuscar2').innerHTML = ICONS.buscar;
+</script>
+<script src="js/map-public.js"></script>
+</body>
+</html>

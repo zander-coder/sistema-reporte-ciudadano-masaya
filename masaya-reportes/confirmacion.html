@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reporte enviado — Masaya Reporta</title>
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpath d='M20 3C12 3 6 9.2 6 17c0 10.5 14 20 14 20s14-9.5 14-20c0-7.8-6-14-14-14Z' fill='%230E7C86'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/layout.css">
+</head>
+<body>
+
+<header class="top-bar">
+  <a href="index.html" class="brand">
+    <span id="logoSlot"></span>
+    <span class="brand-text">Masaya Reporta<small>Alcaldía Municipal de Masaya</small></span>
+  </a>
+</header>
+
+<main class="page-narrow center">
+  <div class="form-shell-sm" style="text-align:center;">
+    <div class="codigo-box">
+      <div id="icoCheck" style="width:40px;height:40px;margin:0 auto;"></div>
+      <p style="margin-top:10px;">Tu reporte fue registrado</p>
+      <div class="codigo" id="codigoTexto">—</div>
+      <p>Guardá este código para consultar el estado más adelante</p>
+    </div>
+
+    <button class="btn btn-ghost btn-block" id="btnCopiar" style="margin-bottom:12px;">
+      <span id="icoCopiar"></span> Copiar código
+    </button>
+    <a class="btn btn-primary btn-block" id="linkSeguimiento" style="margin-bottom:12px;">Ver seguimiento ahora</a>
+    <a class="btn btn-light btn-block" href="index.html">Volver al mapa</a>
+  </div>
+</main>
+
+<div id="toast-region"></div>
+
+<script src="js/icons.js"></script>
+<script src="js/utils.js"></script>
+<script>
+  document.getElementById('logoSlot').innerHTML = ICONS.logo;
+  document.getElementById('icoCheck').innerHTML = ICONS.check;
+  document.getElementById('icoCopiar').innerHTML = ICONS.copiar;
+
+  const params = new URLSearchParams(location.search);
+  const codigo = params.get('codigo') || '—';
+  document.getElementById('codigoTexto').textContent = codigo;
+  document.getElementById('linkSeguimiento').href = `seguimiento.html?codigo=${encodeURIComponent(codigo)}`;
+
+  document.getElementById('btnCopiar').addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(codigo);
+      toast('Código copiado.', 'ok');
+    } catch {
+      toast('No se pudo copiar. Anotalo manualmente: ' + codigo, 'error');
+    }
+  });
+</script>
+</body>
+</html>

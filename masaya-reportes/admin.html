@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panel administrativo — Masaya Reporta</title>
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpath d='M20 3C12 3 6 9.2 6 17c0 10.5 14 20 14 20s14-9.5 14-20c0-7.8-6-14-14-14Z' fill='%230E7C86'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/admin.css">
+
+<script>
+  // Guardia de ruta: si no hay sesión, fuera de aquí antes de pintar nada.
+  if (!sessionStorage.getItem('masaya_admin_session_v1')){
+    window.location.replace('login.html');
+  }
+</script>
+</head>
+<body>
+
+<div class="admin-shell">
+  <aside class="admin-sidebar">
+    <div class="admin-brand brand">
+      <span id="logoSlot"></span>
+      <span class="brand-text">Masaya Reporta<small>Panel municipal</small></span>
+    </div>
+
+    <nav class="admin-nav">
+      <button data-vista="kanban" class="active"><span id="icoKanban"></span>Tablero de reportes</button>
+      <button data-vista="mapa"><span id="icoMapa"></span>Mapa de reportes</button>
+      <button data-vista="stats"><span id="icoStats"></span>Estadísticas</button>
+    </nav>
+
+    <div class="admin-user">
+      <span class="quien" id="nombreUsuario">—</span>
+      <button class="btn btn-ghost btn-sm btn-block" id="btnSalir"><span id="icoSalir"></span>Cerrar sesión</button>
+    </div>
+  </aside>
+
+  <main class="admin-main">
+
+    <section class="admin-view active" id="vistaKanban">
+      <div class="admin-topline">
+        <div>
+          <h2>Tablero de reportes</h2>
+          <p>Arrastrá una tarjeta entre columnas para actualizar el estado del reporte.</p>
+        </div>
+      </div>
+      <div class="kanban-board" id="kanbanBoard"></div>
+    </section>
+
+    <section class="admin-view" id="vistaMapa">
+      <div class="admin-topline">
+        <div>
+          <h2>Mapa de reportes</h2>
+          <p>Visualización geográfica de todos los daños reportados en el municipio.</p>
+        </div>
+      </div>
+      <div id="mapaAdmin"></div>
+    </section>
+
+    <section class="admin-view" id="vistaStats">
+      <div class="admin-topline">
+        <div>
+          <h2>Estadísticas</h2>
+          <p>Volumen de reportes por tipo de daño y por estado de atención.</p>
+        </div>
+      </div>
+      <div class="stats-grid" id="statsCards"></div>
+      <div class="charts-row">
+        <div class="card">
+          <h3 style="margin-bottom:16px;">Reportes por tipo de daño</h3>
+          <div id="chartTipo"></div>
+        </div>
+        <div class="card">
+          <h3 style="margin-bottom:16px;">Reportes por estado</h3>
+          <div id="chartEstado"></div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<div id="modalDetalle" class="modal-overlay hidden">
+  <div class="modal" style="position:relative;" id="modalContenido"></div>
+</div>
+
+<div id="toast-region"></div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="js/icons.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/db.js"></script>
+<script>
+  document.getElementById('logoSlot').innerHTML = ICONS.logo;
+  document.getElementById('icoKanban').innerHTML = ICONS.kanban;
+  document.getElementById('icoMapa').innerHTML = ICONS.mapa;
+  document.getElementById('icoStats').innerHTML = ICONS.stats;
+  document.getElementById('icoSalir').innerHTML = ICONS.salir;
+  document.getElementById('nombreUsuario').textContent = db.auth.usuarioActual() || 'Funcionario municipal';
+</script>
+<script src="js/admin.js"></script>
+</body>
+</html>

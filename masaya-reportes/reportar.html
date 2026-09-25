@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nuevo reporte — Masaya Reporta</title>
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpath d='M20 3C12 3 6 9.2 6 17c0 10.5 14 20 14 20s14-9.5 14-20c0-7.8-6-14-14-14Z' fill='%230E7C86'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/layout.css">
+</head>
+<body>
+
+<header class="top-bar">
+  <a href="index.html" class="brand">
+    <span id="logoSlot"></span>
+    <span class="brand-text">Masaya Reporta<small>Alcaldía Municipal de Masaya</small></span>
+  </a>
+  <nav class="top-nav">
+    <a class="btn btn-ghost btn-sm" href="index.html">Volver al mapa</a>
+  </nav>
+</header>
+
+<main class="page-narrow">
+  <div class="form-shell">
+    <div class="page-head">
+      <span class="eyebrow-tag" id="icoPinTag"></span>
+      <h1>Contanos qué daño encontraste</h1>
+      <p>Tu reporte llega directo a la cuadrilla correspondiente. Vas a recibir un código para seguir su estado.</p>
+    </div>
+
+    <form id="formReporte" class="card" novalidate>
+
+      <div class="field">
+        <label>Tipo de daño</label>
+        <div class="tipo-grid" id="tipoGrid"></div>
+      </div>
+
+      <div class="field">
+        <label for="descripcion">Describí el daño</label>
+        <textarea id="descripcion" class="input" required maxlength="300" placeholder="Ej: bache grande en medio de la calle, cerca de la esquina de la pulpería..."></textarea>
+        <div class="hint">Máximo 300 caracteres.</div>
+      </div>
+
+      <div class="field">
+        <label>Fotografía del daño</label>
+        <div class="upload-box" id="uploadBox">
+          <span id="icoCamara"></span>
+          <p style="margin:8px 0 0;font-weight:600;">Tocá para subir o tomar una foto</p>
+          <div class="hint">JPG o PNG, máx. 5MB</div>
+          <input type="file" id="inputFoto" accept="image/*" capture="environment">
+        </div>
+        <div class="upload-preview hidden" id="previewBox"><img id="previewImg" alt="Vista previa de la foto del daño"></div>
+      </div>
+
+      <div class="field">
+        <label>Ubicación exacta</label>
+        <p style="margin-bottom:8px;font-size:var(--fs-sm);">Usá tu ubicación actual o marcá el punto directamente en el mapa.</p>
+        <button type="button" class="btn btn-ghost btn-sm" id="btnGps"><span id="icoGps"></span>Usar mi ubicación (GPS)</button>
+        <div class="mini-map" id="miniMapa"></div>
+        <div class="hint" id="coordsTexto">Aún no se ha marcado ninguna ubicación.</div>
+      </div>
+
+      <div class="field">
+        <label for="direccionRef">Punto de referencia <span style="font-weight:500;color:var(--ink-faint);">(opcional)</span></label>
+        <input type="text" id="direccionRef" class="input" maxlength="120" placeholder="Ej: frente a la farmacia, Barrio San Jerónimo">
+      </div>
+
+      <div class="field">
+        <label for="telefono">Teléfono de contacto <span style="font-weight:500;color:var(--ink-faint);">(opcional)</span></label>
+        <input type="tel" id="telefono" class="input" placeholder="8888-0000">
+        <div class="hint">Sirve también para consultar el estado de tu reporte más adelante.</div>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-block">Enviar reporte</button>
+    </form>
+  </div>
+</main>
+
+<div id="toast-region"></div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="js/icons.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/db.js"></script>
+<script>
+  document.getElementById('logoSlot').innerHTML = ICONS.logo;
+  document.getElementById('icoPinTag').innerHTML = ICONS.pin + ' Nuevo reporte';
+  document.getElementById('icoCamara').innerHTML = ICONS.camara;
+  document.getElementById('icoGps').innerHTML = ICONS.gps;
+</script>
+<script src="js/reportar.js"></script>
+</body>
+</html>
