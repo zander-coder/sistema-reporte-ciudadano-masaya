@@ -1,0 +1,38 @@
+{
+  "name": "masaya-reporta-backend",
+  "version": "1.0.0",
+  "description": "API REST de Masaya Reporta — Sistema Web de Reporte Ciudadano de Daños Urbanos (Alcaldía de Masaya)",
+  "main": "src/server.js",
+  "type": "commonjs",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "db:migrar": "node src/db/migrate.js",
+    "db:seed": "node src/db/migrate.js --seed",
+    "db:init": "node src/db/migrate.js --seed",
+    "db:reset": "node src/db/migrate.js --reset --seed",
+    "db:script": "node scripts/generar-script-sql.js",
+    "admin:crear": "node scripts/crear-admin.js",
+    "docs:openapi": "node scripts/exportar-openapi.js",
+    "test": "node --test tests/*.test.js",
+    "test:carga": "node scripts/prueba-carga.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "better-sqlite3": "^12.2.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0",
+    "helmet": "^8.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^2.4.0",
+    "swagger-ui-express": "^5.0.1"
+  },
+  "devDependencies": {
+    "autocannon": "^8.0.0"
+  }
+}

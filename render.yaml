@@ -1,0 +1,29 @@
+# Blueprint de Render: despliegue gratuito en un solo servicio (API + frontend)
+services:
+  - type: web
+    name: masaya-reporta
+    runtime: node
+    plan: free
+    rootDir: backend
+    buildCommand: npm ci --omit=dev
+    startCommand: node src/server.js
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: 22
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        generateValue: true
+      - key: SERVIR_FRONTEND
+        value: "true"
+      - key: SEED_DEMO
+        value: "true"
+      - key: TRUST_PROXY
+        value: "true"
+      - key: DB_PATH
+        value: /tmp/masaya.db
+      - key: UPLOADS_DIR
+        value: /tmp/uploads
+      - key: CORS_ORIGENES
+        value: https://masaya-reporta.onrender.com
