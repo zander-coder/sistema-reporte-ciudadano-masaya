@@ -40,7 +40,7 @@ function crearApp({ db, config = baseConfig }) {
         scriptSrc: ["'self'", "'unsafe-inline'", 'https://unpkg.com'],
         styleSrc: ["'self'", "'unsafe-inline'", 'https://unpkg.com', 'https://fonts.googleapis.com'],
         fontSrc: ["'self'", 'https://fonts.gstatic.com'],
-        imgSrc: ["'self'", 'data:', 'blob:', 'https://*.tile.openstreetmap.org', 'https://*.basemaps.cartocdn.com', 'https://unpkg.com'],
+        imgSrc: ["'self'", 'data:', 'blob:', 'https://*.tile.openstreetmap.org', 'https://server.arcgisonline.com', 'https://unpkg.com'],
         connectSrc: ["'self'"],
         objectSrc: ["'none'"],
         frameAncestors: ["'self'"],

@@ -49,7 +49,7 @@
     if (miniMap) { miniMap.remove(); miniMap = null; }
     miniMap = L.map('miniMapaResultado', { zoomControl: false, dragging: false, scrollWheelZoom: false })
       .setView([reporte.lat, reporte.lng], 15);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '&copy; OpenStreetMap' }).addTo(miniMap);
+    capaBase(miniMap);
     L.marker([reporte.lat, reporte.lng]).addTo(miniMap);
   }
 

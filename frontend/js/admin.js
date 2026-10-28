@@ -176,7 +176,7 @@
     await cargarReportes();
     if (!mapaAdminInstance){
       mapaAdminInstance = L.map('mapaAdmin').setView([CENTRO_MASAYA.lat, CENTRO_MASAYA.lng], 14);
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '&copy; OpenStreetMap' }).addTo(mapaAdminInstance);
+      capaBase(mapaAdminInstance);
       capaMarcadores = L.layerGroup().addTo(mapaAdminInstance);
     }
     capaMarcadores.clearLayers();

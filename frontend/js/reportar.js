@@ -43,9 +43,7 @@
 
   // ---- Mini mapa: marcar ubicación ----
   const map = L.map('miniMapa').setView([CENTRO_MASAYA.lat, CENTRO_MASAYA.lng], 14);
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; colaboradores de OpenStreetMap', maxZoom: 19,
-  }).addTo(map);
+  capaBase(map);
 
   let marker = null;
   let ubicacion = null;

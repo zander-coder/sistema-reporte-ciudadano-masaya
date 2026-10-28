@@ -55,3 +55,25 @@ const ESTADO_INFO = {
 };
 
 const ORDEN_ESTADOS = ['recibido', 'revision', 'proceso', 'resuelto'];
+
+
+/* Mapa base: OpenStreetMap (con Referer, como exige su política de uso). Si los mosaicos fallan
+   (bloqueo de red o del proveedor), cambia automáticamente a Esri World Street Map, sin clave de API. */
+function capaBase(map){
+  const osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; colaboradores de <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    maxZoom: 19,
+  }).addTo(map);
+  let ok = false, errores = 0;
+  osm.on('tileload', () => { ok = true; });
+  osm.on('tileerror', () => {
+    errores += 1;
+    if (!ok && errores >= 3 && map.hasLayer(osm)){
+      map.removeLayer(osm);
+      L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
+        attribution: 'Tiles &copy; Esri', maxZoom: 19,
+      }).addTo(map);
+    }
+  });
+  return osm;
+}
