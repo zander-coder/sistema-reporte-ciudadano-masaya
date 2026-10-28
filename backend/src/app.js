@@ -32,6 +32,8 @@ function crearApp({ db, config = baseConfig }) {
   // La CSP permite solo los orígenes externos que usa el frontend (Leaflet, mosaicos OSM, Google Fonts).
   app.use(helmet({
     crossOriginResourcePolicy: { policy: 'cross-origin' },
+    // OpenStreetMap exige el encabezado Referer para servir mosaicos (con "no-referrer" responde 403).
+    referrerPolicy: { policy: 'strict-origin-when-cross-origin' },
     contentSecurityPolicy: {
       directives: {
         defaultSrc: ["'self'"],
