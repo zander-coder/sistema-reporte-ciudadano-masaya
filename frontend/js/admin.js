@@ -21,7 +21,7 @@
 
   // ---------- Cerrar sesión ----------
   $('#btnSalir').addEventListener('click', () => {
-    db.auth.cerrarSesion();
+    api.auth.cerrarSesion();
     window.location.href = 'login.html';
   });
 
@@ -55,7 +55,7 @@
         <h2 style="margin:0;">${escapeHTML(tInfo.label)}</h2>
       </div>
       <p style="font-family:var(--font-display);font-weight:700;color:var(--ink-faint);font-size:var(--fs-sm);margin-bottom:16px;">${escapeHTML(reporte.codigo)} · ${formatFecha(reporte.creado)}</p>
-      ${reporte.foto ? `<div class="upload-preview" style="margin-bottom:16px;"><img src="${escapeHTML(reporte.foto)}" alt="Foto del daño"></div>` : ''}
+      <div class="upload-preview" id="fotoReporte" style="margin-bottom:16px;">${reporte.foto ? `<img src="${escapeHTML(reporte.foto)}" alt="Foto del daño">` : '<p style="padding:20px;text-align:center;color:#6a7179;font-size:15px;">Este reporte no incluye foto.</p>'}</div>
       <p>${escapeHTML(reporte.descripcion)}</p>
       ${reporte.direccionRef ? `<p><strong>Referencia:</strong> ${escapeHTML(reporte.direccionRef)}</p>` : ''}
       ${reporte.telefono ? `<p><strong>Teléfono:</strong> ${escapeHTML(reporte.telefono)}</p>` : ''}
@@ -73,6 +73,10 @@
     modalOverlay.classList.remove('hidden');
 
     $('#btnCerrarModal').addEventListener('click', cerrarModal);
+    const imgFoto = $('#fotoReporte img');
+    if (imgFoto) imgFoto.addEventListener('error', () => {
+      $('#fotoReporte').innerHTML = '<p style="padding:20px;text-align:center;color:#6a7179;font-size:15px;">No se pudo cargar la foto del reporte.</p>';
+    });
     modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) cerrarModal(); });
 
     $('#btnGuardarEstado').addEventListener('click', async () => {
