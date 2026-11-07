@@ -46,6 +46,8 @@
   const modalOverlay = $('#modalDetalle');
   const modalContenido = $('#modalContenido');
 
+  let mapaDetalle = null;
+
   function abrirModal(reporte){
     const tInfo = TIPO_INFO[reporte.tipo];
     modalContenido.innerHTML = `
@@ -56,6 +58,8 @@
       </div>
       <p style="font-family:var(--font-display);font-weight:700;color:var(--ink-faint);font-size:var(--fs-sm);margin-bottom:16px;">${escapeHTML(reporte.codigo)} · ${formatFecha(reporte.creado)}</p>
       <div class="upload-preview" id="fotoReporte" style="margin-bottom:16px;">${reporte.foto ? `<img src="${escapeHTML(reporte.foto)}" alt="Foto del daño">` : '<p style="padding:20px;text-align:center;color:#6a7179;font-size:15px;">Este reporte no incluye foto.</p>'}</div>
+      <div id="mapaReporte" style="height:220px;border-radius:12px;overflow:hidden;border:1px solid #d9dee2;"></div>
+      <p style="margin:8px 0 16px;font-size:14px;color:#6a7179;">Ubicación: ${Number(reporte.lat).toFixed(5)}, ${Number(reporte.lng).toFixed(5)} · <a href="https://www.google.com/maps?q=${Number(reporte.lat)},${Number(reporte.lng)}" target="_blank" rel="noopener" style="color:#0E7C86;font-weight:600;">Abrir en Google Maps</a></p>
       <p>${escapeHTML(reporte.descripcion)}</p>
       ${reporte.direccionRef ? `<p><strong>Referencia:</strong> ${escapeHTML(reporte.direccionRef)}</p>` : ''}
       ${reporte.telefono ? `<p><strong>Teléfono:</strong> ${escapeHTML(reporte.telefono)}</p>` : ''}
@@ -71,6 +75,14 @@
       </div>
     `;
     modalOverlay.classList.remove('hidden');
+
+    // Mapa con el lugar exacto del reporte (para revisarlo completo desde el panel)
+    if (mapaDetalle){ mapaDetalle.remove(); mapaDetalle = null; }
+    const pos = [Number(reporte.lat), Number(reporte.lng)];
+    mapaDetalle = L.map('mapaReporte', { scrollWheelZoom: false }).setView(pos, 17);
+    capaBase(mapaDetalle);
+    L.marker(pos).addTo(mapaDetalle);
+    setTimeout(() => { if (mapaDetalle) mapaDetalle.invalidateSize(); }, 80);
 
     $('#btnCerrarModal').addEventListener('click', cerrarModal);
     const imgFoto = $('#fotoReporte img');
@@ -100,7 +112,10 @@
       }
     });
   }
-  function cerrarModal(){ modalOverlay.classList.add('hidden'); modalContenido.innerHTML = ''; }
+  function cerrarModal(){
+    if (mapaDetalle){ mapaDetalle.remove(); mapaDetalle = null; }
+    modalOverlay.classList.add('hidden'); modalContenido.innerHTML = '';
+  }
 
   // ---------- Kanban ----------
   async function refrescarKanban(){
