@@ -9,6 +9,7 @@
      npm run db:reset      -> borra la BD y la recrea con datos demo
    ========================================================= */
 const fs = require('fs');
+const path = require('path');
 const config = require('../config');
 const { abrirConexion } = require('./connection');
 
@@ -44,6 +45,20 @@ function migrar(db, dir = config.migracionesDir) {
 function sembrar(db, dir = config.seedsDir) {
   for (const archivo of listarSql(dir)) {
     db.exec(fs.readFileSync(`${dir}/${archivo}`, 'utf8'));
+  }
+  copiarFotosDemo(db);
+}
+
+/** Los reportes de demostración apuntan a fotos ilustrativas (backend/demo-fotos/<tipo>.jpg):
+ *  se copian a la carpeta de subidas para que el panel pueda mostrarlas. */
+function copiarFotosDemo(db) {
+  const origen = path.join(__dirname, '..', '..', 'demo-fotos');
+  const filas = db.prepare(`SELECT r.foto, t.clave AS tipo FROM reportes r
+                            JOIN tipos_dano t ON t.id = r.tipo_id WHERE r.foto LIKE 'demo-%'`).all();
+  fs.mkdirSync(config.uploadsDir, { recursive: true });
+  for (const { foto, tipo } of filas) {
+    const src = path.join(origen, `${tipo}.jpg`);
+    if (fs.existsSync(src)) fs.copyFileSync(src, path.join(config.uploadsDir, foto));
   }
 }
 
